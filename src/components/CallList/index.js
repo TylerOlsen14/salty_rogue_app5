@@ -33,13 +33,19 @@ const styles = theme => ({
 	},
 })
 
-function Dashboard(props) {
+function CallList(props) {
 	const { classes } = props
 
-  const [quote, setQuote] = useState('')
+  const [name, setName] = useState('')
+  const [property, setProperty] = useState('')
+  const [question, setQuestion] = useState('')
+  const [resolution, setResolution] = useState('')
 
 	useEffect(() => {
-		firebase.getCurrentUserQuote().then(setQuote)
+		firebase.getCallRecord().then(setName)
+		firebase.getCallRecord().then(setProperty)
+		firebase.getCallRecord().then(setQuestion)
+		firebase.getCallRecord().then(setResolution)
 	})
 
   if(!firebase.getCurrentUsername()) {
@@ -56,20 +62,23 @@ function Dashboard(props) {
 					<VerifiedUserOutlined />
 				</Avatar>
 				<Typography component="h1" variant="h5">
+          Call Records          
+        </Typography>
+				<Typography component="h1" variant="h5">
 					Hello { firebase.getCurrentUsername() }
 				</Typography>
 				<Typography component="h1" variant="h5">
-					Your quote: {quote ? `"${quote}"` : <CircularProgress size={20} />}
+					Client's name: {name ? `"${name}"` : <CircularProgress size={20} />}
 				</Typography>
-				<Button
-					type="submit"
-					fullWidth
-					variant="contained"
-					color="secondary"
-					onClick={logout}
-					className={classes.submit}>
-					Call Records
-        </Button>
+				<Typography component="h1" variant="h5">
+					Property: {property ? `"${property}"` : <CircularProgress size={20} />}
+				</Typography>
+				<Typography component="h1" variant="h5">
+					Question: {question ? `"${question}"` : <CircularProgress size={20} />}
+				</Typography>
+				<Typography component="h1" variant="h5">
+					Resolution: {resolution ? `"${resolution}"` : <CircularProgress size={20} />}
+				</Typography>
 				<Button
 					type="submit"
 					fullWidth
@@ -78,20 +87,15 @@ function Dashboard(props) {
 					onClick={logout}
 					className={classes.submit}>
 					Logout
-        </Button>
+          		</Button>
 			</Paper>
 		</main>
 	)
 
-	async function getCallRecord() {
-		await firebase.getCallRecord()
-		props.history.push('/PhoneRecords')
-	}
 	async function logout() {
 		await firebase.logout()
 		props.history.push('/')
 	}
 }
 
-
-export default withRouter(withStyles(styles)(Dashboard))
+export default withRouter(withStyles(styles)(CallList))

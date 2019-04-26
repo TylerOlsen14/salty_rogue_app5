@@ -49,10 +49,10 @@ const styles = theme => ({
 function Register(props) {
   const { classes } = props;
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [quote, setQuote] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [quote, setQuote] = useState('');
 
   return (
     <main className={classes.main}>
@@ -128,8 +128,7 @@ function Register(props) {
             color="secondary"
             component={Link}
             to="/login"
-            className={classes.submit}
-          >
+            className={classes.submit}>
             Go back to Login
           </Button>
         </form>

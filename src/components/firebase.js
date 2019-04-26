@@ -57,6 +57,11 @@ class Firebase {
 		const quote = await this.db.doc(`PhoneRecords/${this.auth.currentUser.uid}`).get()
 		return quote.get('quote')
 	}
+  async getCallRecord() {
+    const record = await this.db.doc('PhoneRecords/').get()
+    return record.get('record')
+  }
+  
 }
 
 export default new Firebase()
